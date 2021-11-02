@@ -23,7 +23,7 @@ characterNodePath = NodePath("../character")
 
 [node name="Block" type="StaticBody2D" parent="Geometry"]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 514.78, 88.7178 )
+position = Vector2( 392.55, -3.35148 )
 scale = Vector2( 60.226, 1 )
 __meta__ = {
 "_edit_group_": true
@@ -34,7 +34,7 @@ shape = SubResource( 1 )
 
 [node name="Block2" type="StaticBody2D" parent="Geometry"]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 497.797, 539.686 )
+position = Vector2( 423.189, 542.861 )
 scale = Vector2( 60.226, 1 )
 __meta__ = {
 "_edit_group_": true
@@ -45,7 +45,7 @@ shape = SubResource( 1 )
 
 [node name="Block3" type="StaticBody2D" parent="Geometry"]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 59.0001, 355.921 )
+position = Vector2( 3.44114, 284.488 )
 rotation = 1.5708
 scale = Vector2( 60.226, 1 )
 __meta__ = {
@@ -57,7 +57,7 @@ shape = SubResource( 1 )
 
 [node name="Block4" type="StaticBody2D" parent="Geometry"]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 922.886, 359.191 )
+position = Vector2( 954.634, 271.884 )
 rotation = 1.5708
 scale = Vector2( 60.226, 1 )
 __meta__ = {
@@ -67,4 +67,17 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block4"]
 shape = SubResource( 1 )
 
+[node name="Block5" type="StaticBody2D" parent="Geometry"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 786.37, 473.484 )
+rotation = 1.5708
+scale = Vector2( 5.112, 7.822 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block5"]
+shape = SubResource( 1 )
+
 [node name="character" parent="." instance=ExtResource( 1 )]
+position = Vector2( 248.838, 152.106 )

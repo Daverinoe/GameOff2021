@@ -8,19 +8,22 @@ var direction : Vector2
 var velocity : Vector2
 var jumping : bool
 var falling : bool
-var isOnFloor: bool
+var isOnFloor : bool
+var gravity : float
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position = characterNode.position
 	direction = characterNode.direction
 	velocity = characterNode.velocity
 	jumping = characterNode.jumping
 	falling = characterNode.falling
 	isOnFloor = characterNode.is_on_floor()
+	gravity =characterNode.gravity
 	
 	text = "Position: " + str(position) \
 		+ "\nDirection: " + str(direction) \
 		+ "\nVelocity: " + str(velocity) \
 		+ "\nJumping: " + str(jumping) \
 		+ "\nFalling: " + str(falling) \
-		+ "\nOn floor: " + str(isOnFloor)
+		+ "\nOn floor: " + str(isOnFloor) \
+		+ "\nGravity: " + str(gravity) 
