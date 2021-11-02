@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Label.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 18.0196 )
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="DebugLabel" type="Label" parent="."]
+margin_left = 55.1544
+margin_top = 43.8406
+margin_right = 242.154
+margin_bottom = 225.841
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+characterNodePath = NodePath("../character")
+
+[node name="Geometry" type="Node2D" parent="."]
+
+[node name="Block" type="StaticBody2D" parent="Geometry"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 514.78, 88.7178 )
+scale = Vector2( 60.226, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block"]
+shape = SubResource( 1 )
+
+[node name="Block2" type="StaticBody2D" parent="Geometry"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 497.797, 539.686 )
+scale = Vector2( 60.226, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block2"]
+shape = SubResource( 1 )
+
+[node name="Block3" type="StaticBody2D" parent="Geometry"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 59.0001, 355.921 )
+rotation = 1.5708
+scale = Vector2( 60.226, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block3"]
+shape = SubResource( 1 )
+
+[node name="Block4" type="StaticBody2D" parent="Geometry"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 922.886, 359.191 )
+rotation = 1.5708
+scale = Vector2( 60.226, 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/Block4"]
+shape = SubResource( 1 )
+
+[node name="character" parent="." instance=ExtResource( 1 )]
