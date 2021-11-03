@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Label.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/mouse.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 18.0196 )
@@ -25,6 +26,7 @@ characterNodePath = NodePath("../character")
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 392.55, -3.35148 )
 scale = Vector2( 60.226, 1 )
+collision_layer = 3
 __meta__ = {
 "_edit_group_": true
 }
@@ -36,6 +38,7 @@ shape = SubResource( 1 )
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 423.189, 542.861 )
 scale = Vector2( 60.226, 1 )
+collision_layer = 3
 __meta__ = {
 "_edit_group_": true
 }
@@ -48,6 +51,7 @@ modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 3.44114, 284.488 )
 rotation = 1.5708
 scale = Vector2( 60.226, 1 )
+collision_layer = 3
 __meta__ = {
 "_edit_group_": true
 }
@@ -60,6 +64,7 @@ modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 954.634, 271.884 )
 rotation = 1.5708
 scale = Vector2( 60.226, 1 )
+collision_layer = 3
 __meta__ = {
 "_edit_group_": true
 }
@@ -69,9 +74,10 @@ shape = SubResource( 1 )
 
 [node name="Block5" type="StaticBody2D" parent="Geometry"]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 786.37, 473.484 )
+position = Vector2( 608.37, 476.484 )
 rotation = 1.5708
 scale = Vector2( 5.112, 7.822 )
+collision_layer = 3
 __meta__ = {
 "_edit_group_": true
 }
@@ -81,3 +87,6 @@ shape = SubResource( 1 )
 
 [node name="character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 248.838, 152.106 )
+
+[node name="mouse" parent="." instance=ExtResource( 3 )]
+position = Vector2( 605, 415 )
