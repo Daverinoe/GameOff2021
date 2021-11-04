@@ -1,13 +1,46 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sounds/Effects/character_damage.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21.9016, 64.4063 )
 
-[node name="character" type="KinematicBody2D"]
+[sub_resource type="Animation" id=2]
+resource_name = "TakeDamage"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Audio:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="character" type="KinematicBody2D" groups=[
+"Friendly",
+]]
 position = Vector2( 101.677, 202.76 )
+collision_layer = 3
+collision_mask = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -24,4 +57,20 @@ shape = SubResource( 1 )
 wait_time = 0.1
 one_shot = true
 
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="MovementPauseTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/TakeDamage = SubResource( 2 )
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="timeout" from="MovementPauseTimer" to="." method="_on_MovementPauseTimer_timeout"]
