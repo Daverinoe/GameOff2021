@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Sounds/Effects/character_damage.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 21.9016, 64.4063 )
+extents = Vector2( 11.3277, 32.0769 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "TakeDamage"
@@ -47,10 +47,10 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.11813, -0.222717 )
 shape = SubResource( 1 )
 
 [node name="CoyoteTimer" type="Timer" parent="."]
