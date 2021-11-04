@@ -7,8 +7,8 @@ extends KinematicBody2D
 var target : Vector2
 
 # Attacking constants
-onready var attackDistance : float = 50
-export(float, 0, 100) var health : float = 10 
+export(int, 0, 2) var health : int = 2
+export(int, 0, 2) var damage : int = 1
 
 # Moving constants
 export(int, 0, 500) var speed : float = 100
@@ -44,3 +44,12 @@ func patrol():
 		$Sprite.flip_h = false
 	
 	velocity = direction * speed
+
+func on_hit(damage: int) -> void:
+	health -= damage
+	if health <= 0:
+		die()
+
+func die():
+	# Play death animation (eventually)
+	self.call_deferred("queue_free")
