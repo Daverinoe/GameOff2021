@@ -3,8 +3,9 @@
 [ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Office/officeHub.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Office/officeOne.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/CameraController.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/CameraController.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Office/officeTwo.tscn" type="PackedScene" id=5]
+
 
 [node name="levelLoader" type="Node"]
 

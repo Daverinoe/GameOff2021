@@ -1,11 +1,16 @@
-extends Area2D
+extends StaticBody2D
 
-onready var buttonNode : Node = get_node_or_null("Button")
+onready var collisionShape = get_node("CollisionShape2D")
 
-func _ready():
-	if buttonNode != null:
-		buttonNode.connect("button_pressed", self, "open_signal_received")
-
-
-func open_signal_received():
-	print("open")
+func _process(_delta):
+	var open = checkLocks()
+	if(open):
+		collisionShape.disabled = true
+	elif(!open and collisionShape.disabled):
+		collisionShape.disabled = false
+			
+func checkLocks() -> bool:
+	for child in self.get_children():
+		if(child.is_in_group("Lock")):
+			return false
+	return true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Tiles/Office/officeTilest.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Prefabs/Door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Prefabs/Button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Prefabs/Lock.tscn" type="PackedScene" id=5]
 
 [node name="Level" type="Node2D"]
 
@@ -45,8 +46,20 @@ tile_data = PoolIntArray( 0, 4, 0, 1, 4, 0, 2, 4, 0, 3, 4, 0, 4, 4, 0, 5, 4, 0, 
 [node name="Door" parent="." instance=ExtResource( 3 )]
 position = Vector2( 848.959, 335.245 )
 
-[node name="Button" parent="." instance=ExtResource( 4 )]
-position = Vector2( 130.895, 479.57 )
+[node name="Lock" parent="Door" instance=ExtResource( 5 )]
+
+[node name="Button" parent="Door/Lock" instance=ExtResource( 4 )]
+position = Vector2( 567.959, 293.245 )
+
+[node name="Lock2" parent="Door" instance=ExtResource( 5 )]
+
+[node name="Button" parent="Door/Lock2" instance=ExtResource( 4 )]
+position = Vector2( 232, 298 )
+
+[node name="Lock3" parent="Door" instance=ExtResource( 5 )]
+
+[node name="Button" parent="Door/Lock3" instance=ExtResource( 4 )]
+position = Vector2( 73, 296 )
 
 [node name="character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 69.8435, 471.735 )
