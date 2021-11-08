@@ -26,6 +26,7 @@ var jumping : bool = true
 var falling : bool = true
 onready var gravityStore = gravity
 var isHit : bool = false
+var isMoving : bool = false # Use this to double-check collisions with enemies
 
 func _process(_delta: float) -> void:
 	# Get the input here so that we don't miss any inputs due to the set update of _physics_process
@@ -61,6 +62,17 @@ func get_input_and_set_jump() -> void:
 		falling = true
 
 func set_velocity() -> void:
+	# Check for non-movement first
+	if abs(velocity.x) > 0.1 or abs(velocity.y) > 0.1:
+		isMoving = true
+	else:
+		isMoving = false
+	
+	if abs(velocity.x) > 0.1 and $Footsteps/Timer.is_stopped():
+		$Footsteps/Timer.start()
+	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped():
+			$Footsteps/Timer.stop()
+	
 	if !isHit:
 		# Left and right movement (lerp looks nice, though might try different erp functions)
 		if direction.x != 0:
@@ -104,23 +116,25 @@ func _on_CoyoteTimer_timeout() -> void:
 		falling = true
 
 func check_enemy_collision() -> void:
-	for slide in get_slide_count():
-		var collision = get_slide_collision(slide)
-		if collision.collider.is_in_group("Enemy"):
-			take_damage(collision.collider.damage)
+	if !isHit:
+		for slide in get_slide_count():
+			var collision = get_slide_collision(slide)
+			if collision.collider.is_in_group("Enemy"):
+				take_damage(collision.collider.damage)
 
 func take_damage(damageTaken: int) -> void:
-	# Play damage animation
-	# Turn movement off
-	isHit = true
-	# Take damage
-	health -= damageTaken
-	# Start timer to not take damage again
-	$HitTimer.start()
-	$AnimationPlayer.play("TakeDamage")
-	$MovementPauseTimer.start()
-	 # Turn off collision so we don't hit things until after the hit timer expires
-	set_collision(1, false)
+	if !isHit:
+		# Play damage animation
+		# Turn movement off
+		isHit = true
+		# Take damage
+		health -= damageTaken
+		# Start timer to not take damage again
+		$HitTimer.start()
+		$MovementPauseTimer.start()
+		$AnimationPlayer.play("TakeDamage")
+		 # Turn off collision so we don't hit things until after the hit timer expires
+		set_collision(1, false)
 
 
 func _on_HitTimer_timeout() -> void:
@@ -135,3 +149,7 @@ func _on_MovementPauseTimer_timeout() -> void:
 func set_collision(bit: int, state: bool) -> void:
 	set_collision_layer_bit(bit, state)
 	set_collision_mask_bit(bit, state)
+
+func _on_Timer_timeout() -> void:
+	$Footsteps/Sound.pitch_scale = rand_range(0.8, 1.2)
+	$Footsteps/Sound.play()
