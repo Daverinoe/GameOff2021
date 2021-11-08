@@ -10,6 +10,7 @@ var jumping : bool
 var falling : bool
 var isOnFloor : bool
 var gravity : float
+var isMoving : bool
 
 func _process(_delta: float) -> void:
 	position = characterNode.position
@@ -18,7 +19,8 @@ func _process(_delta: float) -> void:
 	jumping = characterNode.jumping
 	falling = characterNode.falling
 	isOnFloor = characterNode.is_on_floor()
-	gravity =characterNode.gravity
+	gravity = characterNode.gravity
+	isMoving = characterNode.isMoving
 	
 	text = "Position: " + str(position) \
 		+ "\nDirection: " + str(direction) \
@@ -26,4 +28,5 @@ func _process(_delta: float) -> void:
 		+ "\nJumping: " + str(jumping) \
 		+ "\nFalling: " + str(falling) \
 		+ "\nOn floor: " + str(isOnFloor) \
-		+ "\nGravity: " + str(gravity) 
+		+ "\nGravity: " + str(gravity) \
+		+ "\nIs moving: " + str(isMoving)
