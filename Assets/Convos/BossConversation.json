@@ -1,0 +1,15 @@
+{
+	"conversation": [{
+		"speaker": "Boss",
+		"lines": "You there! THE SYSTEM IS DOWN!"
+	}, {
+		"speaker": "Boss",
+		"lines": "I need you to FIX IT! I have VERY IMPORTANT THINGS TO DO!"
+	}, {
+		"speaker": "Boss",
+		"lines": "Well? GET GOING!"
+	}, {
+		"speaker": "Boss",
+		"lines": "Honestly, what do I even PAY you FOR?"
+	}]
+}
