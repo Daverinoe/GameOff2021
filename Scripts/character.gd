@@ -15,7 +15,7 @@ export(float, 0.0, 3000) var terminalVelocity : float = 2000 # Hopefully ~ 200 m
 export(float, 0.0, 300) var jumpSpeed : float = 800
 export(float, 1.0, 300) var jumpAcceleration : float = 100
 
-
+var jumpParticlesScene : PackedScene = preload("res://Scenes/characterdetail/FootPuffs.tscn")
 
 # Intermediary variables
 var direction := Vector2()
@@ -71,7 +71,7 @@ func set_velocity() -> void:
 	if abs(velocity.x) > 0.1 and $Footsteps/Timer.is_stopped():
 		$Footsteps/Timer.start()
 	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped():
-			$Footsteps/Timer.stop()
+		$Footsteps/Timer.stop()
 	
 	if !isHit:
 		# Left and right movement (lerp looks nice, though might try different erp functions)
@@ -101,6 +101,10 @@ func check_floor():
 		falling = false
 		jumping = false
 		$CoyoteTimer.stop()
+		var jumpParts = jumpParticlesScene.instance()
+		jumpParts.process_material.initial_velocity = direction.x * 10
+		jumpParts.emitting = true
+		self.call_deferred("add_child", jumpParts)
 
 func check_coyote(delta):
 	# If the coyote timer isn't running and we walk off of an edge, start the coyote timer
@@ -151,5 +155,5 @@ func set_collision(bit: int, state: bool) -> void:
 	set_collision_mask_bit(bit, state)
 
 func _on_Timer_timeout() -> void:
-	$Footsteps/Sound.pitch_scale = rand_range(0.8, 1.2)
+	$Footsteps/Sound.pitch_scale = rand_range(0.7, 1.3)
 	$Footsteps/Sound.play()

@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/FootPuffs.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0.385093, 0.751553, 1 )
+colors = PoolColorArray( 0.13562, 0.304726, 0.34375, 1, 0.137255, 0.305882, 0.345098, 0.654902, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+max_value = 20.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.494565, 4 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="Curve" id=10]
+max_value = 30.0
+_data = [ Vector2( 0, 4.63636 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.98913, 4.90909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 2
+emission_box_extents = Vector3( 12, 0.1, 0 )
+flag_disable_z = true
+gravity = Vector3( 0, -2, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel_random = 0.87
+radial_accel_curve = SubResource( 11 )
+damping_random = 1.0
+damping_curve = SubResource( 9 )
+scale = 1.1
+scale_random = 1.0
+color_ramp = SubResource( 7 )
+
+[node name="FootPuffs" type="Particles2D"]
+position = Vector2( 0, 31.618 )
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 5 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
