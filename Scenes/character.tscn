@@ -1,15 +1,56 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sounds/Effects/character_damage.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Sounds/Effects/footstep.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.3277, 32.0769 )
 
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitAudio:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Footsteps/Sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "TakeDamage"
 length = 2.0
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -19,26 +60,27 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
+"update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Audio:playing")
+tracks/1/path = NodePath("HitAudio:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.9 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true ]
 }
 
 [node name="character" type="KinematicBody2D" groups=[
 "Friendly",
 "Player",
 ]]
+
 position = Vector2( 101.677, 202.76 )
 collision_layer = 3
 collision_mask = 3
@@ -69,11 +111,24 @@ wait_time = 0.3
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
 anims/TakeDamage = SubResource( 2 )
 
-[node name="Audio" type="AudioStreamPlayer" parent="."]
+[node name="HitAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+bus = "Effects"
+
+[node name="Footsteps" type="Node" parent="."]
+
+[node name="Sound" type="AudioStreamPlayer" parent="Footsteps"]
+stream = ExtResource( 4 )
+bus = "Effects"
+
+[node name="Timer" type="Timer" parent="Footsteps"]
+wait_time = 0.3
+autostart = true
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="timeout" from="MovementPauseTimer" to="." method="_on_MovementPauseTimer_timeout"]
+[connection signal="timeout" from="Footsteps/Timer" to="." method="_on_Timer_timeout"]

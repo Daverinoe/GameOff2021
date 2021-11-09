@@ -34,6 +34,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 	
 	move_and_slide(velocity, Vector2.UP)
+	
+	check_enemy_collision()
 
 func patrol():
 	if !$FloorCheckLeft.is_colliding():
@@ -53,3 +55,9 @@ func on_hit(damage: int) -> void:
 func die():
 	# Play death animation (eventually)
 	self.call_deferred("queue_free")
+
+func check_enemy_collision() -> void:
+	for slide in get_slide_count():
+		var collision = get_slide_collision(slide)
+		if collision.collider.is_in_group("Friendly"):
+			collision.collider.take_damage(damage)
