@@ -76,7 +76,11 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[node name="character" type="KinematicBody2D" groups=["Friendly"]]
+[node name="character" type="KinematicBody2D" groups=[
+"Friendly",
+"Player",
+]]
+
 position = Vector2( 101.677, 202.76 )
 collision_layer = 3
 collision_mask = 3
@@ -88,7 +92,9 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=[
+"Player",
+]]
 position = Vector2( 3.11813, -0.222717 )
 shape = SubResource( 1 )
 
