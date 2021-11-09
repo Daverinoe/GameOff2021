@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
@@ -76,12 +76,57 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
+<<<<<<< Updated upstream
 [node name="character" type="KinematicBody2D" groups=[
 "Friendly",
 "Player",
 ]]
 
 position = Vector2( 101.677, 202.76 )
+=======
+[sub_resource type="Animation" id=12]
+resource_name = "landing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("LandingPuff:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Curve" id=7]
+max_value = 30.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 3.06818 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 5
+emission_ring_radius = 15.0
+emission_ring_inner_radius = 0.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 1, 0 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, -20.633, 0 )
+initial_velocity = 10.0
+angular_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel_curve = SubResource( 8 )
+damping = 20.0
+damping_random = 0.2
+color = Color( 0.921569, 1, 0, 1 )
+
+[node name="character" type="KinematicBody2D" groups=["Friendly"]]
+>>>>>>> Stashed changes
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
@@ -113,6 +158,7 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
 anims/TakeDamage = SubResource( 2 )
+anims/landing = SubResource( 12 )
 
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -122,11 +168,22 @@ bus = "Effects"
 
 [node name="Sound" type="AudioStreamPlayer" parent="Footsteps"]
 stream = ExtResource( 4 )
+volume_db = -10.487
 bus = "Effects"
 
 [node name="Timer" type="Timer" parent="Footsteps"]
-wait_time = 0.3
+wait_time = 0.25
 autostart = true
+
+[node name="LandingPuff" type="Particles2D" parent="."]
+position = Vector2( 0, 30.999 )
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 11 )
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

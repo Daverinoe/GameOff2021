@@ -68,9 +68,9 @@ func set_velocity() -> void:
 	else:
 		isMoving = false
 	
-	if abs(velocity.x) > 0.1 and $Footsteps/Timer.is_stopped():
+	if abs(velocity.x) > 0.1 and $Footsteps/Timer.is_stopped() and !falling and !jumping:
 		$Footsteps/Timer.start()
-	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped():
+	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped() or falling or jumping:
 			$Footsteps/Timer.stop()
 	
 	if !isHit:
@@ -101,6 +101,7 @@ func check_floor():
 		falling = false
 		jumping = false
 		$CoyoteTimer.stop()
+		$AnimationPlayer.play("landing")
 
 func check_coyote(delta):
 	# If the coyote timer isn't running and we walk off of an edge, start the coyote timer
