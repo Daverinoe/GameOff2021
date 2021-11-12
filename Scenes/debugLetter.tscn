@@ -7,16 +7,18 @@ radius = 2.38649
 height = 3.05157
 
 [node name="debugLetter" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 3
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = -2.0
-margin_top = -5.0
-margin_right = 3.0
-margin_bottom = 9.0
+margin_left = -6.64596
+margin_top = -5.62996
+margin_right = 8.35404
+margin_bottom = 8.37004
 text = "f"
 align = 1
 valign = 1
