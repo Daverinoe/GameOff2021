@@ -4,7 +4,8 @@ export(int, 1, 3) var damage : int = 1
 
 export(PackedScene) var shot : PackedScene
 
-var shotNum : int = 1
+var shotNum : int = 0
+onready var sentenceNum : int = randi() % 4
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
@@ -22,6 +23,12 @@ func _on_shotTimer_timeout() -> void:
 	shooter.direction = get_parent().direction
 	shooter.damage = damage
 	shooter.letterNum = shotNum
+	shooter.sentenceNum = sentenceNum
 	shooter.speed = shooter.speed + abs(get_parent().velocity.x)
+	shooter.connect("sentenceFinished", self, "_choose_random_sentence", [shooter])
 	owner.owner.add_child(shooter)
 	shotNum += 1
+
+func _choose_random_sentence(scene) -> void:
+	sentenceNum = randi() % scene.sentences.size()
+	shotNum = 0

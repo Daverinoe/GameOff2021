@@ -3,8 +3,8 @@
 [ext_resource path="res://Scripts/debugLetter.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 2.38649
-height = 3.05157
+radius = 9.98912
+height = 0.0
 
 [node name="debugLetter" type="KinematicBody2D"]
 collision_layer = 0
@@ -15,10 +15,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = -6.64596
-margin_top = -5.62996
-margin_right = 8.35404
-margin_bottom = 8.37004
+margin_left = -7.0
+margin_top = -6.0
+margin_right = 8.0
+margin_bottom = 8.0
 text = "f"
 align = 1
 valign = 1
