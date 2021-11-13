@@ -1,14 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sounds/Effects/character_damage.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Sounds/Effects/footstep.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sprites/Character/weapon/debugger.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Weapon.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/debugLetter.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.3277, 32.0769 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -47,8 +50,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "TakeDamage"
+[sub_resource type="Animation" id=3]
 length = 2.0
 step = 0.2
 tracks/0/type = "value"
@@ -77,12 +79,13 @@ tracks/1/keys = {
 }
 
 [node name="character" type="KinematicBody2D" groups=["Friendly", "Player"]]
-collision_layer = 3
+collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+gravity = 70.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -104,8 +107,8 @@ wait_time = 0.3
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 4 )
-anims/TakeDamage = SubResource( 2 )
+anims/RESET = SubResource( 2 )
+anims/TakeDamage = SubResource( 3 )
 
 [node name="HitAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -121,7 +124,20 @@ bus = "Effects"
 wait_time = 0.3
 autostart = true
 
+[node name="Weapon" type="Node2D" parent="."]
+position = Vector2( 19.4803, -0.667418 )
+script = ExtResource( 6 )
+shot = ExtResource( 7 )
+
+[node name="debugger" type="Sprite" parent="Weapon"]
+position = Vector2( -16.4202, -0.00379753 )
+texture = ExtResource( 5 )
+
+[node name="shotTimer" type="Timer" parent="Weapon"]
+wait_time = 0.05
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="timeout" from="MovementPauseTimer" to="." method="_on_MovementPauseTimer_timeout"]
 [connection signal="timeout" from="Footsteps/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Weapon/shotTimer" to="Weapon" method="_on_shotTimer_timeout"]

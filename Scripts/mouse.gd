@@ -47,8 +47,8 @@ func patrol():
 	
 	velocity = direction * speed
 
-func on_hit(damage: int) -> void:
-	health -= damage
+func on_hit(damageTaken: int) -> void:
+	health -= damageTaken
 	if health <= 0:
 		die()
 
