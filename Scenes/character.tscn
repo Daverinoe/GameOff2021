@@ -118,10 +118,12 @@ bus = "Effects"
 
 [node name="Sound" type="AudioStreamPlayer" parent="Footsteps"]
 stream = ExtResource( 4 )
+volume_db = -10.0
 bus = "Effects"
 
 [node name="Timer" type="Timer" parent="Footsteps"]
-wait_time = 0.3
+process_mode = 0
+wait_time = 0.25
 autostart = true
 
 [node name="Weapon" type="Node2D" parent="."]
