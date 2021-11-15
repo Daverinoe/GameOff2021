@@ -1,34 +1,30 @@
 extends Node
 
 var nextLevel = null
+var exit = null
 
 onready var currentLevel = $Office/Level #This is the start level
 onready var anim = $AnimationPlayer
 onready var player = $character
 onready var camera = $character/Camera2D
+onready var levelDataClass = load("res://Scripts/levelData.gd")
+onready var levelData = levelDataClass.new()
 
 
 func _ready() -> void:
 	currentLevel.connect("levelChanged", self, "handleLevelChanged")
 	setCameraLimits()
-	
-func _process(delta):
-	pass
 
-func handleLevelChanged(currentLevelName: String):
+
+func handleLevelChanged(currentLevelName: String, exitTemp: int):
 	var nextLevelName: String
-
-	match currentLevelName:
-		"officeHub":
-			nextLevelName = "Office/officeOne"
-		"officeOne":
-			nextLevelName = "Office/officeHub"
-		_:
-			return
+	var nextLevelNameTemp = levelData.levelConnect.get(currentLevelName)
+	exit = exitTemp
+	nextLevelName = nextLevelNameTemp[exit]
 			
 	nextLevel = load("res://Scenes/" + nextLevelName + ".tscn").instance()
 	nextLevel.visible = false
-	add_child(nextLevel)
+	call_deferred("add_child", nextLevel)
 	anim.play("fadeIn")
 	nextLevel.connect("levelChanged", self, "handleLevelChanged")
 	transferDataBetweenScenes(currentLevel, nextLevel)
@@ -49,9 +45,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"fadeIn":
 			currentLevel.cleanup()
 			currentLevel = nextLevel
+			player.position = currentLevel.getSpawn(exit).position
 			currentLevel.visible = true
 			nextLevel = null
-			player.position = currentLevel.spawnPoint.position
 			setCameraLimits()
 			anim.play("fadeOut")
 		"fadeOut":
