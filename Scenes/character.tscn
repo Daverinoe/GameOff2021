@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Sprites/Character/weapon/debugger.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Weapon.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/debugLetter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Sounds/Effects/keyClick.ogg" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.3277, 32.0769 )
@@ -103,7 +104,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="MovementPauseTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.4
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -118,7 +119,7 @@ bus = "Effects"
 
 [node name="Sound" type="AudioStreamPlayer" parent="Footsteps"]
 stream = ExtResource( 4 )
-volume_db = -10.0
+volume_db = -12.0
 bus = "Effects"
 
 [node name="Timer" type="Timer" parent="Footsteps"]
@@ -130,6 +131,7 @@ autostart = true
 position = Vector2( 19.4803, -0.667418 )
 script = ExtResource( 6 )
 shot = ExtResource( 7 )
+shotDelay = 0.11
 
 [node name="debugger" type="Sprite" parent="Weapon"]
 position = Vector2( -16.4202, -0.00379753 )
@@ -137,6 +139,11 @@ texture = ExtResource( 5 )
 
 [node name="shotTimer" type="Timer" parent="Weapon"]
 wait_time = 0.05
+
+[node name="keyClickShot" type="AudioStreamPlayer" parent="Weapon"]
+stream = ExtResource( 8 )
+volume_db = -7.0
+bus = "Effects"
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

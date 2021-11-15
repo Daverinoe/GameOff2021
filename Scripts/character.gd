@@ -22,11 +22,18 @@ var velocity := Vector2()
 
 # Constants
 var jumping : bool = true
+var doubleJump : bool = false
 var falling : bool = true
 onready var gravityStore = gravity
 onready var speed = maxSpeed
 var isHit : bool = false
 var isMoving : bool = false # Use this to double-check collisions with enemies
+
+# Powerups
+var doubleRunSpeedCollected = false
+var doubleShootSpeedCollected = false
+var doubleBulletSpeedCollected = false
+var doubleJumpCollected = false
 
 func _process(_delta: float) -> void:
 	# Get the input here so that we don't miss any inputs due to the set update of _physics_process
@@ -62,9 +69,13 @@ func get_input_and_set_direction() -> void:
 		self.scale.y = 1
 
 func get_input_and_set_jump() -> void:
-	if Input.is_action_just_pressed("jump") and !jumping:
+	if Input.is_action_just_pressed("jump") and (!jumping or (!doubleJump and doubleJumpCollected)):
 		velocity.y = 0 # Do a velocity check here so velocity change later is instantaneous
+		if jumping:
+			doubleJump = true
 		jumping = true
+		falling = false
+		
 	if Input.is_action_just_released("jump") and jumping:
 		falling = true
 
@@ -91,6 +102,12 @@ func set_velocity() -> void:
 	if jumping and !falling:
 		if velocity.y > -jumpSpeed: # We don't want to accelerate forever
 			velocity.y -= gravity + jumpAcceleration
+		elif !doubleJump:
+			falling = true # We don't want to fly (at least, not by pressing jump)
+	
+	if doubleJump and !falling:
+		if velocity.y > -jumpSpeed: # We don't want to accelerate forever
+			velocity.y -= gravity + jumpAcceleration
 		else:
 			falling = true # We don't want to fly (at least, not by pressing jump)
 	
@@ -107,6 +124,7 @@ func check_floor():
 		gravity = gravityStore
 		falling = false
 		jumping = false
+		doubleJump = false
 		$CoyoteTimer.stop()
 		var jumpParts = jumpParticlesScene.instance()
 		jumpParts.process_material.initial_velocity = direction.x * 10
