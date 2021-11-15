@@ -51,11 +51,16 @@ __meta__ = {
 }
 
 [node name="character" parent="." instance=ExtResource( 1 )]
-position = Vector2( 199.869, 447.562 )
+position = Vector2( 42.1799, 477.853 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 480, 270 )
+[node name="Camera2D" type="Camera2D" parent="character"]
+position = Vector2( 32, -64 )
 current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.3
+drag_margin_right = 0.3
+editor_draw_limits = true
 script = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

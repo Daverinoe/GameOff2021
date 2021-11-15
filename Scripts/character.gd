@@ -26,7 +26,9 @@ var jumping : bool = true
 var falling : bool = true
 onready var gravityStore = gravity
 var isHit : bool = false
+var isChangingLevel : bool = false
 var isMoving : bool = false # Use this to double-check collisions with enemies
+
 
 func _process(_delta: float) -> void:
 	# Get the input here so that we don't miss any inputs due to the set update of _physics_process
@@ -73,7 +75,7 @@ func set_velocity() -> void:
 	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped():
 		$Footsteps/Timer.stop()
 	
-	if !isHit:
+	if !isHit and !isChangingLevel:
 		# Left and right movement (lerp looks nice, though might try different erp functions)
 		if direction.x != 0:
 			velocity.x = lerp(velocity.x, direction.x * maxSpeed, 1/acceleration)
@@ -81,11 +83,15 @@ func set_velocity() -> void:
 			velocity.x = lerp(velocity.x, 0, 1/deceleration)
 	
 	# Up movement
-	if jumping and !falling:
+	if jumping and !falling and !isChangingLevel:
 		if velocity.y > -jumpSpeed: # We don't want to accelerate forever
 			velocity.y -= gravity + jumpAcceleration
 		else:
 			falling = true # We don't want to fly (at least, not by pressing jump)
+	
+	if isChangingLevel:
+		velocity.x = 0
+		velocity.y = 0
 	
 #	if jumping and falling:
 #		gravity = 1.5 * gravityStore  # We can uncomment this if we want to fall faster after jumping
