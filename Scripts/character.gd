@@ -31,10 +31,10 @@ var isChangingLevel : bool = false
 var isMoving : bool = false # Use this to double-check collisions with enemies
 
 # Powerups
-var doubleRunSpeedCollected = false
-var doubleShootSpeedCollected = false
-var doubleBulletSpeedCollected = false
-var doubleJumpCollected = false
+export var doubleRunSpeedCollected = false
+export var doubleShootSpeedCollected = false
+export var doubleBulletSpeedCollected = false
+export var doubleJumpCollected = true
 
 func _process(_delta: float) -> void:
 	# Get the input here so that we don't miss any inputs due to the set update of _physics_process
