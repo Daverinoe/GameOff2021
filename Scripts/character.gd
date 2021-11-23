@@ -31,10 +31,10 @@ var isChangingLevel : bool = false
 var isMoving : bool = false # Use this to double-check collisions with enemies
 
 # Powerups
-var doubleRunSpeedCollected = false
-var doubleShootSpeedCollected = false
-var doubleBulletSpeedCollected = false
-var doubleJumpCollected = false
+export var doubleRunSpeedCollected = false
+export var doubleShootSpeedCollected = false
+export var doubleBulletSpeedCollected = false
+export var doubleJumpCollected = true
 
 func _process(_delta: float) -> void:
 	# Get the input here so that we don't miss any inputs due to the set update of _physics_process
@@ -76,6 +76,8 @@ func get_input_and_set_jump() -> void:
 			doubleJump = true
 		jumping = true
 		falling = false
+		$JumpSound.play()
+		$JumpSound.pitch_scale = rand_range(0.9, 1.1)
 		
 	if Input.is_action_just_released("jump") and jumping:
 		falling = true
@@ -91,6 +93,7 @@ func set_velocity() -> void:
 		$Footsteps/Timer.start()
 	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped() or !is_on_floor():
 		$Footsteps/Timer.stop()
+		$Footsteps/Timer.wait_time = 0.05
 	
 	if !isHit and !isChangingLevel:
 		# Left and right movement (lerp looks nice, though might try different erp functions)
@@ -184,5 +187,7 @@ func set_collision(bit: int, state: bool) -> void:
 	set_collision_mask_bit(bit, state)
 
 func _on_Timer_timeout() -> void:
+	if $Footsteps/Timer.wait_time != 0.4:
+		$Footsteps/Timer.wait_time = 0.4
 	$Footsteps/Sound.pitch_scale = rand_range(0.7, 1.3)
 	$Footsteps/Sound.play()
