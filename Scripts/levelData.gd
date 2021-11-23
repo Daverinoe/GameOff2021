@@ -6,5 +6,6 @@ var levelConnect = {
 	"officeOne" : ["Office/officeHub", null, null, null],
 	"officeTwo" : [null, "Office/officeHub", null, null],
 	"officeThree" : [null, null, null, "Office/officeHub"],
-	"forestHub" : [null, null, null, null]
+	"forestHub" : [null, "VrForest/forestOne", null, null],
+	"forestOne" : ["VrForest/forestHub", null, null, null]
 }
