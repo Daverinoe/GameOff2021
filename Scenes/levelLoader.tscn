@@ -40,18 +40,6 @@ tracks/0/keys = {
 [node name="levelLoader" type="Node"]
 script = ExtResource( 6 )
 
-[node name="Overlay" type="CanvasLayer" parent="."]
-layer = 0
-
-[node name="Overlay" type="ColorRect" parent="Overlay"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 125.241, 374.027 )
 maxSpeed = 400
@@ -75,4 +63,27 @@ anims/fadeOut = SubResource( 2 )
 
 [node name="Level" parent="Office" instance=ExtResource( 2 )]
 
+[node name="Overlay" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Menu" type="Button" parent="Overlay"]
+margin_left = 6.22119
+margin_top = 9.87518
+margin_right = 54.2212
+margin_bottom = 29.8752
+text = "Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Overlay" type="ColorRect" parent="Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="Overlay/Menu" to="." method="_on_Menu_pressed"]
