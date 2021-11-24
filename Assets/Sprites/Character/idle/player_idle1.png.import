@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/forest.png-42d52622dfa8311fb89e8010ad909f9f.stex"
+path="res://.import/player_idle1.png-0c7975ad36e4a21c4edb2eddced84a60.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/vr_forest/forest.png"
-dest_files=[ "res://.import/forest.png-42d52622dfa8311fb89e8010ad909f9f.stex" ]
+source_file="res://Assets/Sprites/Character/idle/player_idle1.png"
+dest_files=[ "res://.import/player_idle1.png-0c7975ad36e4a21c4edb2eddced84a60.stex" ]
 
 [params]
 
