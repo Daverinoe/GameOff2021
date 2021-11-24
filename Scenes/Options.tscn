@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Options.gd" type="Script" id=1]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 7
+period = 1.9
+persistence = 0.463
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+bump_strength = 27.6
+noise = SubResource( 1 )
 
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
@@ -13,38 +24,132 @@ __meta__ = {
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 195.545
+margin_top = 156.052
+margin_right = -444.455
+margin_bottom = -95.9484
+texture = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect/VBoxContainer"]
+margin_right = 320.0
+
+[node name="Label" type="Label" parent="NinePatchRect/VBoxContainer"]
+margin_top = 32.0
+margin_right = 320.0
+margin_bottom = 46.0
+text = "Settings"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
+margin_top = 78.0
+margin_right = 320.0
+margin_bottom = 288.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Column1" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 313.0
-margin_bottom = 540.0
+[node name="Column1" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 210.0
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="Column2" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 323.0
-margin_right = 636.0
-margin_bottom = 540.0
+[node name="MainMenu" type="Button" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column1"]
+margin_top = 190.0
+margin_right = 100.0
+margin_bottom = 210.0
+text = "Main Menu"
+
+[node name="Column2" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+margin_left = 110.0
+margin_right = 210.0
+margin_bottom = 210.0
 size_flags_horizontal = 3
+custom_constants/separation = 16
 
-[node name="Column3" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 646.0
-margin_right = 960.0
-margin_bottom = 540.0
+[node name="Label" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2"]
+margin_right = 100.0
+margin_bottom = 14.0
+text = "Audio"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2"]
+margin_top = 30.0
+margin_right = 100.0
+margin_bottom = 140.0
+
+[node name="Label2" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 14.0
+text = "Master"
+
+[node name="MasterSound" type="HSlider" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_top = 18.0
+margin_right = 100.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_top = 38.0
+margin_right = 100.0
+margin_bottom = 52.0
+text = "SFX"
+
+[node name="SFXSound" type="HSlider" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_top = 56.0
+margin_right = 100.0
+margin_bottom = 72.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_top = 76.0
+margin_right = 100.0
+margin_bottom = 90.0
+text = "Music"
+
+[node name="MusicSound" type="HSlider" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer"]
+margin_top = 94.0
+margin_right = 100.0
+margin_bottom = 110.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column3" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
+margin_left = 220.0
+margin_right = 320.0
+margin_bottom = 210.0
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="ExitButton" type="Button" parent="HBoxContainer/Column3"]
-margin_right = 314.0
-margin_bottom = 20.0
-text = "Exit"
+[node name="ExitButton" type="Button" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column3"]
+margin_top = 190.0
+margin_right = 100.0
+margin_bottom = 210.0
+text = "Back"
 
-[connection signal="pressed" from="HBoxContainer/Column3/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column1/MainMenu" to="." method="_on_MainMenu_pressed"]
+[connection signal="value_changed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer/MasterSound" to="." method="_on_MasterSound_value_changed"]
+[connection signal="value_changed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer/SFXSound" to="." method="_on_SFXSound_value_changed"]
+[connection signal="value_changed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer/MusicSound" to="." method="_on_MusicSound_value_changed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column3/ExitButton" to="." method="_on_ExitButton_pressed"]

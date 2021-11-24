@@ -52,3 +52,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			anim.play("fadeOut")
 		"fadeOut":
 			player.isChangingLevel = false
+
+
+func _on_Menu_pressed():
+	var options = load("res://Scenes/Options.tscn").instance()
+	get_tree().current_scene.add_child(options)
