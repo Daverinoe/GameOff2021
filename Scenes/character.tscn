@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=2]
@@ -9,6 +9,24 @@
 [ext_resource path="res://Scenes/debugLetter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Sounds/Effects/keyClick.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Sounds/Effects/jump.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sprites/Character/idle/player_idle1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/Character/idle/player_idle2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/Character/idle/player_idle3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sprites/Character/idle/player_idle4.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sprites/Character/idle/player_idle5.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.3277, 32.0769 )
@@ -89,7 +107,15 @@ __meta__ = {
 }
 gravity = 70.0
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+animation = "idle"
+frame = 4
+speed_scale = 1.5
+playing = true
+
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]

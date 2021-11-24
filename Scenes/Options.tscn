@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Options.gd" type="Script" id=1]
+
+[node name="OptionsMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column1" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 313.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
+
+[node name="Column2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 323.0
+margin_right = 636.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
+
+[node name="Column3" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 646.0
+margin_right = 960.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
+
+[node name="ExitButton" type="Button" parent="HBoxContainer/Column3"]
+margin_right = 314.0
+margin_bottom = 20.0
+text = "Exit"
+
+[connection signal="pressed" from="HBoxContainer/Column3/ExitButton" to="." method="_on_ExitButton_pressed"]
