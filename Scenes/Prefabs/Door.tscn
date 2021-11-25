@@ -1,10 +1,45 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/Sprites/door.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/door_closed.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/DoorController.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/door_open_three.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/door_open_one.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/door_open_two.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.9263, 47.8488 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 0.34151, 0.353553, 0.420448, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 0.420448, 0.353553, 0.34151 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]
+}
 
 [node name="Door" type="StaticBody2D"]
 script = ExtResource( 2 )
@@ -14,3 +49,7 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/close = SubResource( 3 )
+anims/open = SubResource( 2 )
