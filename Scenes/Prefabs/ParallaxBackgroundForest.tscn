@@ -12,7 +12,7 @@ shader = ExtResource( 6 )
 shader_param/scan_line_size = 0.015
 shader_param/horizontal_shake_magnitude = 0.01
 shader_param/chromatic_aberration_magnitude = 0.061
-shader_param/enabled = true
+shader_param/enabled = false
 
 [node name="ParallaxBackgroundForest" type="ParallaxBackground"]
 script = ExtResource( 1 )
