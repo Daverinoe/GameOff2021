@@ -3,9 +3,9 @@
 [resource]
 code = "shader_type canvas_item;
 
-uniform float scan_line_jitter : hint_range(0.0,0.075) = 0.015;
-uniform float horizontal_shake : hint_range(0.0,0.25) = 0.01;
-uniform float color_drift : hint_range(0.0,0.1) = 0.03; 
+uniform float scan_line_size : hint_range(0.0,0.075) = 0.015;
+uniform float horizontal_shake_magnitude : hint_range(0.0,0.25) = 0.01;
+uniform float chromatic_aberration_magnitude : hint_range(0.0,0.1) = 0.03; 
 
 uniform bool enabled;
 
@@ -15,15 +15,14 @@ float nrand(float x, float y) {
 
 void fragment() {	
 	if (enabled){
-		float jitter = nrand(UV.y, TIME) * 2.0 - 1.0;
-		jitter *= step(0, abs(jitter)) * scan_line_jitter;
-		float jump = mix(UV.y, fract(UV.y), 0.0);
-		float shake = (nrand(TIME, 2.0) - 0.5) * horizontal_shake;
-		float drift = sin(jump) * color_drift;
+		float noise = nrand(UV.y, TIME) * 2.0 - 1.0;
+		noise *= step(0, abs(noise)) * scan_line_size;
+		float h_shake = (nrand(TIME, 2.0) - 0.5) * horizontal_shake_magnitude;
+		float chromatic_aberration = sin(UV.y) * chromatic_aberration_magnitude;
 		
-		vec4 src1 = texture(TEXTURE, fract(vec2(UV.x + jitter + shake, jump)));
-		vec4 src2 = texture(TEXTURE, fract(vec2(UV.x + jitter + shake + drift, jump)));
-		COLOR = vec4(src1.r,src2.g,src1.b,src1.a);
+		vec4 base_1 = texture(TEXTURE, fract(vec2(UV.x + noise + h_shake, UV.y)));
+		vec4 base_2 = texture(TEXTURE, fract(vec2(UV.x + noise + h_shake + chromatic_aberration, UV.y)));
+		COLOR = vec4(base_1.r, base_2.g, base_1.b, base_1.a);
 	} else {
 		COLOR = texture(TEXTURE, UV);
 	}

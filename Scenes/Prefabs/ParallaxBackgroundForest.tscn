@@ -9,17 +9,17 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
-shader_param/scan_line_jitter = 0.015
-shader_param/horizontal_shake = 0.01
-shader_param/color_drift = 0.03
-shader_param/enabled = null
+shader_param/scan_line_size = 0.015
+shader_param/horizontal_shake_magnitude = 0.01
+shader_param/chromatic_aberration_magnitude = 0.061
+shader_param/enabled = false
 
 [node name="ParallaxBackgroundForest" type="ParallaxBackground"]
 script = ExtResource( 1 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0.2, 1 )
-motion_mirroring = Vector2( 600, 0 )
+motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer2" groups=["ParallaxSprite"]]
 material = SubResource( 1 )
@@ -33,7 +33,7 @@ one_shot = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0.4, 1 )
-motion_mirroring = Vector2( 600, 0 )
+motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer" groups=["ParallaxSprite"]]
 material = ExtResource( 4 )

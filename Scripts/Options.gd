@@ -16,6 +16,10 @@ func _ready() -> void:
 	$NinePatchRect/VBoxContainer/HBoxContainer/Column2/VBoxContainer/MusicSound.value  = musicLevel
 
 
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		call_deferred("queue_free")
+
 func _on_ExitButton_pressed():
 	call_deferred("queue_free")
 
