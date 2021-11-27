@@ -65,12 +65,48 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BEAM:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BEAM:width")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BEAM:default_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.796078, 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=7]
 resource_name = "attack"
-length = 5.0
+length = 3.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Particles2D:emitting")
 tracks/0/interp = 1
@@ -116,10 +152,60 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 1.7 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.7, 3.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BEAM:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2, 3.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BEAM:width")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2, 2.1, 2.2 ),
+"transitions": PoolRealArray( 1, 0.189465, 0.143587 ),
+"update": 0,
+"values": [ 1.0, 20.0, 30.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BEAM:default_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2, 2.3, 3.1 ),
+"transitions": PoolRealArray( 0, 1, 0.164939 ),
+"update": 0,
+"values": [ Color( 1, 0.796078, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.447059, 0, 0.145098 ) ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("..")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 2.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_check_hit"
+} ]
 }
 
 [node name="CRT" type="KinematicBody2D"]
@@ -164,6 +250,15 @@ anims/attack = SubResource( 7 )
 [node name="attackPause" type="Timer" parent="Attack"]
 wait_time = 0.5
 one_shot = true
+
+[node name="checkHit" type="RayCast2D" parent="Attack"]
+cast_to = Vector2( 1300, 0 )
+collision_mask = 4
+
+[node name="BEAM" type="Line2D" parent="Attack"]
+points = PoolVector2Array( 20, 0, 1300, 0 )
+width = 1.0
+default_color = Color( 1, 0.796078, 0, 1 )
 
 [connection signal="body_entered" from="detectionArea" to="." method="_on_detectionArea_body_entered"]
 [connection signal="body_exited" from="detectionArea" to="." method="_on_detectionArea_body_exited"]

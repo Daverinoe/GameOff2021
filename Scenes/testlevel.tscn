@@ -105,4 +105,4 @@ position = Vector2( 148.939, 156.596 )
 position = Vector2( 605, 415 )
 
 [node name="CRT" parent="." instance=ExtResource( 4 )]
-position = Vector2( 593.782, 158.267 )
+position = Vector2( 888.99, 55.0006 )

@@ -3,12 +3,15 @@ extends KinematicBody2D
 export(int, 0, 200) var speed : int = 1
 export(float, 0, 1) var acceleration : float = 0.1
 
+export(int, 0, 10) var damage : int = 5
+
 var attacking : bool = false
 export var track_enemy : bool = false
 var move_to_last_pos : bool = false
 var enemy : Node
 var last_pos : Vector2
 var velocity
+var in_range : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,7 +25,7 @@ func _process(delta: float) -> void:
 	else:
 		$Sprite.flip_v = true
 	
-	if track_enemy:
+	if track_enemy and in_range:
 		_track_enemy()
 		
 	
@@ -39,8 +42,10 @@ func _on_detectionArea_body_entered(body: Node) -> void:
 	if body.is_in_group("Friendly"):
 		enemy = body
 		track_enemy = true
-		_track_enemy()
-		attacking = true
+		if not attacking:
+			_track_enemy()
+			attacking = true
+		in_range = true
 
 
 func _on_detectionArea_body_exited(body: Node) -> void:
@@ -48,17 +53,20 @@ func _on_detectionArea_body_exited(body: Node) -> void:
 		last_pos = body.get_global_position()
 		track_enemy = false
 		move_to_last_pos = true
+		in_range = false
 
 func set_velocity(enemy_position : Vector2) -> void:
 	velocity = (enemy_position - position) * speed
 
 
 func _on_attackPause_timeout() -> void:
-	attacking = true
+	if in_range:
+		attacking = true
 
 func _stop_attacking() -> void:
 	attacking = false
-	track_enemy = true
+	if in_range:
+		track_enemy = true
 
 func _track_enemy() -> void:
 	look_at(enemy.get_global_position())
@@ -67,3 +75,14 @@ func _track_enemy() -> void:
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "attack":
 		$Attack/attackPause.start()
+
+func _check_hit() -> void:
+	var raycaster = $Attack/checkHit
+	raycaster.enabled = true
+	raycaster.force_raycast_update()
+	
+	if raycaster.is_colliding():
+		var collision = raycaster.get_collider()
+		collision.take_damage(damage)
+	
+	raycaster.enabled = false
