@@ -43,7 +43,7 @@ func _on_detectionArea_body_entered(body: Node) -> void:
 	if body.is_in_group("Friendly"):
 		enemy = body
 		track_enemy = true
-		if not attacking:
+		if not attacking and $Attack/attackPause.is_stopped():
 			_track_enemy()
 			attacking = true
 		in_range = true
@@ -75,6 +75,7 @@ func _track_enemy() -> void:
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == "attack":
+		attacking = false
 		$Attack/attackPause.start()
 
 func _check_hit() -> void:

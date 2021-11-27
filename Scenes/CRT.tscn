@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Sprites/Enemies/CRT.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/CRT.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sounds/Effects/beamShot.ogg" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.0
@@ -135,6 +136,18 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -280,6 +293,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="ParticlesMaterial" id=9]
 emission_shape = 2
@@ -331,7 +356,7 @@ anims/RESET = SubResource( 6 )
 anims/attack = SubResource( 7 )
 
 [node name="attackPause" type="Timer" parent="Attack"]
-wait_time = 0.5
+wait_time = 1.9
 one_shot = true
 
 [node name="checkHit" type="RayCast2D" parent="Attack"]
@@ -347,7 +372,7 @@ default_color = Color( 1, 0.796078, 0, 1 )
 [node name="beamParticles" type="Particles2D" parent="Attack"]
 position = Vector2( 663, -1 )
 emitting = false
-amount = 20
+amount = 60
 lifetime = 0.4
 randomness = 1.0
 visibility_rect = Rect2( -650, -20, 1300, 40 )
@@ -356,6 +381,10 @@ process_material = SubResource( 9 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Attack"]
 environment = SubResource( 8 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Attack"]
+stream = ExtResource( 3 )
+bus = "Effects"
 
 [connection signal="body_entered" from="detectionArea" to="." method="_on_detectionArea_body_entered"]
 [connection signal="body_exited" from="detectionArea" to="." method="_on_detectionArea_body_exited"]
