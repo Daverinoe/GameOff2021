@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+export(int, 0, 100) var health : int = 20
 export(int, 0, 200) var speed : int = 1
 export(float, 0, 1) var acceleration : float = 0.1
 
@@ -15,7 +16,7 @@ var in_range : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$Attack/BEAM.modulate = Color(1.1, 1.1, 1.1, 1.1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
