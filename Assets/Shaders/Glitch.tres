@@ -1,0 +1,29 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float scan_line_size : hint_range(0.0,0.075) = 0.015;
+uniform float horizontal_shake_magnitude : hint_range(0.0,0.25) = 0.01;
+uniform float chromatic_aberration_magnitude : hint_range(0.0,0.1) = 0.03; 
+
+uniform bool enabled;
+
+float nrand(float x, float y) {
+	return fract(sin(dot(vec2(x,y),vec2(12.9898, 78.233))) * 43758.5433);
+}
+
+void fragment() {	
+	if (enabled){
+		float noise = nrand(UV.y, TIME) * 2.0 - 1.0;
+		noise *= step(0, abs(noise)) * scan_line_size;
+		float h_shake = (nrand(TIME, 2.0) - 0.5) * horizontal_shake_magnitude;
+		float chromatic_aberration = sin(UV.y) * chromatic_aberration_magnitude;
+		
+		vec4 base_1 = texture(TEXTURE, fract(vec2(UV.x + noise + h_shake, UV.y)));
+		vec4 base_2 = texture(TEXTURE, fract(vec2(UV.x + noise + h_shake + chromatic_aberration, UV.y)));
+		COLOR = vec4(base_1.r, base_2.g, base_1.b, base_1.a);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
+}"

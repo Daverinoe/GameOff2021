@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Parallax.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/forest.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/sky.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Materials/glitch.tres" type="Material" id=4]
+[ext_resource path="res://Scripts/glitch.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Shaders/Glitch.tres" type="Shader" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 6 )
+shader_param/scan_line_size = 0.015
+shader_param/horizontal_shake_magnitude = 0.01
+shader_param/chromatic_aberration_magnitude = 0.061
+shader_param/enabled = false
 
 [node name="ParallaxBackgroundForest" type="ParallaxBackground"]
 script = ExtResource( 1 )
@@ -12,13 +22,28 @@ motion_scale = Vector2( 0.2, 1 )
 motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer2" groups=["ParallaxSprite"]]
+material = SubResource( 1 )
 texture = ExtResource( 3 )
 centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer2"]
+wait_time = 0.5
+one_shot = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0.4, 1 )
 motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer" groups=["ParallaxSprite"]]
+material = ExtResource( 4 )
 texture = ExtResource( 2 )
 centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="ParallaxLayer2/GlitchTimer" to="ParallaxLayer2/Sprite" method="_on_GlitchTimer_timeout"]
+[connection signal="timeout" from="ParallaxLayer/GlitchTimer" to="ParallaxLayer/Sprite" method="_on_GlitchTimer_timeout"]
