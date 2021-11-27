@@ -301,7 +301,7 @@ glow_blend_mode = 0
 glow_hdr_luminance_cap = 7.43
 glow_bicubic_upscale = true
 
-[node name="CRT" type="KinematicBody2D"]
+[node name="CRT" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

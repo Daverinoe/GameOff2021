@@ -87,3 +87,8 @@ func _check_hit() -> void:
 		collision.take_damage(damage)
 	
 	raycaster.enabled = false
+
+func on_hit(take_damage: int) -> void:
+	health -= take_damage
+	if health <= 0:
+		call_deferred("queue_free")
