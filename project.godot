@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="GameOff2021"
-run/main_scene="res://Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/mainmenu.tscn"
 run/delta_smoothing=false
 config/icon="res://icon.png"
 
