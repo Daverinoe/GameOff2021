@@ -15,6 +15,7 @@ export(float, 0.0, 300) var jumpSpeed : float = 800
 export(float, 1.0, 300) var jumpAcceleration : float = 100
 
 var jumpParticlesScene : PackedScene = preload("res://Scenes/characterdetail/FootPuffs.tscn")
+onready var animatedSprite = $AnimatedSprite
 
 # Intermediary variables
 var direction := Vector2.RIGHT
@@ -56,11 +57,14 @@ func get_input_and_set_direction() -> void:
 	elif Input.is_action_pressed("move_left"):
 		direction.x = -1
 		speed = maxSpeed
+		animatedSprite.play("walk")
 	elif Input.is_action_pressed("move_right"):
 		direction.x = 1
 		speed = maxSpeed
+		animatedSprite.play("walk")
 	else:
 		speed = 0
+		animatedSprite.play("idle")
 	
 	if Input.is_action_just_pressed("move_left"):
 		self.rotation = deg2rad(180)
