@@ -2,6 +2,7 @@ extends Node
 
 var nextLevel = null
 var exit = null
+var gameOver = false
 
 onready var currentLevel = $Office/Level #This is the start level
 onready var anim = $AnimationPlayer
@@ -39,16 +40,24 @@ func setCameraLimits():
 	camera.limit_top = currentLevel.cameraLimit[1]
 	camera.limit_right = currentLevel.cameraLimit[2]
 	camera.limit_bottom = currentLevel.cameraLimit[3]
+	
+func gameOver():
+	gameOver = true
+	player.isChangingLevel = true
+	anim.play("fadeIn")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"fadeIn":
-			currentLevel.cleanup()
-			currentLevel = nextLevel
-			player.position = currentLevel.getSpawn(exit).position
-			currentLevel.visible = true
-			nextLevel = null
-			setCameraLimits()
+			if gameOver:
+				get_tree().change_scene("res://Scenes/mainmenu.tscn")
+			else:
+				currentLevel.cleanup()
+				currentLevel = nextLevel
+				player.position = currentLevel.getSpawn(exit).position
+				setCameraLimits()
+				currentLevel.visible = true
+				nextLevel = null
 			anim.play("fadeOut")
 		"fadeOut":
 			player.isChangingLevel = false
