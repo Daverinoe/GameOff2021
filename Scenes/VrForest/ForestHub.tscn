@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Tiles/vrForest/ForestHub.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/level.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Prefabs/ParallaxBackgroundForest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Prefabs/Lock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Prefabs/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/CRT.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Prefabs/Spikes.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10.3298, 48.4704 )
@@ -35,5 +37,11 @@ position = Vector2( 2519.42, 465.496 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitRight"]
 position = Vector2( 2576.82, 431.988 )
 shape = SubResource( 1 )
+
+[node name="CRT" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1898.92, 262.225 )
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( 913.214, 495.874 )
 
 [connection signal="body_entered" from="ExitRight" to="." method="_on_ExitRight_body_entered"]

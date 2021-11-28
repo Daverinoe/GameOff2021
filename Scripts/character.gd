@@ -16,6 +16,7 @@ export(float, 1.0, 300) var jumpAcceleration : float = 100
 
 var jumpParticlesScene : PackedScene = preload("res://Scenes/characterdetail/FootPuffs.tscn")
 onready var animatedSprite = $AnimatedSprite
+onready var levelLoader = get_node("/root/levelLoader")
 
 # Intermediary variables
 var direction := Vector2.RIGHT
@@ -176,6 +177,8 @@ func take_damage(damageTaken: int) -> void:
 		$AnimationPlayer.play("TakeDamage")
 		 # Turn off collision so we don't hit things until after the hit timer expires
 		set_collision(1, false)
+	if health < 0:
+		levelLoader.gameOver()
 
 
 func _on_HitTimer_timeout() -> void:
