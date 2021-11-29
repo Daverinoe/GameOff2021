@@ -6,6 +6,16 @@ var levelConnect = {
 	"officeOne" : ["Office/officeHub", null, null, null],
 	"officeTwo" : [null, "Office/officeHub", null, null],
 	"officeThree" : [null, null, null, "Office/officeHub"],
-	"forestHub" : [null, "VrForest/ForestOne", null, null],
-	"forestOne" : ["VrForest/ForestHub", null, null, null]
+	"forestHub" : [null, "forestOne", null, null],
+	"forestOne" : ["forestHub", null, null, null]
+}
+
+var openDoors = {
+	"forestHub" : [false],
+	"forestOne" : [false]
+}
+
+var pointsTaken = {
+	"forestHub" : [false],
+	"forestOne" : [false]
 }
