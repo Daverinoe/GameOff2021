@@ -11,6 +11,8 @@ onready var camera = $character/Camera2D
 onready var levelDataClass = load("res://Scripts/levelData.gd")
 onready var levelData = levelDataClass.new()
 
+var score = 0
+
 
 func _ready() -> void:
 	currentLevel.connect("levelChanged", self, "handleLevelChanged")

@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/VrForest/ForestHub.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/ScoreAmount.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/CameraController.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/levelLoader.gd" type="Script" id=6]
 
@@ -45,6 +47,8 @@ anims/fadeOut = SubResource( 2 )
 
 [node name="Office" type="Node" parent="."]
 
+[node name="Level" parent="Office" instance=ExtResource( 2 )]
+
 [node name="character" parent="." instance=ExtResource( 1 )]
 position = Vector2( 110.139, 198.467 )
 maxSpeed = 400
@@ -79,6 +83,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Overlay"]
+margin_left = 38.3086
+margin_top = 35.1905
+margin_right = 78.3086
+margin_bottom = 75.1905
+text = "Score"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreAmount" type="RichTextLabel" parent="Overlay"]
+margin_left = 86.781
+margin_top = 35.4416
+margin_right = 126.781
+margin_bottom = 75.4416
+text = "0"
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

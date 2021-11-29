@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Menu/mainMenuBackground.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/sky.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/forest.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Tiles/vrForest/ForestHub.tres" type="TileSet" id=6]
+[ext_resource path="res://Assets/Menu/newGame.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Menu/options.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Menu/exit.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Menu/newGameHover.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Menu/optionsHover.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Menu/exitHover.png" type="Texture" id=12]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -40,32 +47,55 @@ texture = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 0.6
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.647
+anchor_bottom = 0.5
+margin_top = 64.0
+margin_right = 96.0
+margin_bottom = 112.62
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
-margin_right = 63.0
-margin_bottom = 20.0
+[node name="MainMenuBackground" type="Sprite" parent="VBoxContainer"]
+position = Vector2( 35.6403, 37.3828 )
+texture = ExtResource( 2 )
+offset = Vector2( 10, -10 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 62.0
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_bottom = 62.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 4.0
+margin_right = 86.0
+margin_bottom = 62.0
+
+[node name="StartButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_right = 82.0
+margin_bottom = 18.0
 focus_neighbour_top = NodePath("../QuitButton")
-text = "Start"
+texture_normal = ExtResource( 7 )
+texture_hover = ExtResource( 10 )
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 63.0
-margin_bottom = 44.0
-text = "Options"
+[node name="OptionsButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 22.0
+margin_right = 82.0
+margin_bottom = 40.0
+texture_normal = ExtResource( 8 )
+texture_hover = ExtResource( 11 )
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 63.0
-margin_bottom = 68.0
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 82.0
+margin_bottom = 62.0
 focus_neighbour_bottom = NodePath("../StartButton")
-text = "Quit"
+texture_normal = ExtResource( 9 )
+texture_hover = ExtResource( 12 )
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
