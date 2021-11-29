@@ -41,7 +41,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]
 }
 
-[node name="Door" type="StaticBody2D"]
+[node name="Door" type="StaticBody2D" groups=["Door"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

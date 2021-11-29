@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	$VBoxContainer/StartButton.grab_focus()
+	$VBoxContainer/HBoxContainer/VBoxContainer/StartButton.grab_focus()
 
 func _on_StartButton_pressed():
 	get_tree().change_scene("res://Scenes/levelLoader.tscn")

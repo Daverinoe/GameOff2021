@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 onready var collisionShape = get_node("CollisionShape2D")
-onready var anim = $AnimationPlayer
+onready var anim = get_node("AnimationPlayer")
 
 var animPlayed = false
 
@@ -22,3 +22,11 @@ func checkLocks() -> bool:
 		if(child.is_in_group("Lock")):
 			return false
 	return true
+	
+func setOpen():
+	for child in self.get_children():
+		if(child.is_in_group("Lock")):
+			child.queue_free()
+
+func collisionDisabled():
+	return collisionShape.disabled
