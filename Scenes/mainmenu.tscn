@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Menu/mainMenuBackground.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Menu/newGameHover.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Menu/optionsHover.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Menu/exitHover.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sounds/Music/MainMenu.ogg" type="AudioStream" id=13]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -95,6 +96,12 @@ margin_bottom = 62.0
 focus_neighbour_bottom = NodePath("../StartButton")
 texture_normal = ExtResource( 9 )
 texture_hover = ExtResource( 12 )
+
+[node name="menuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+autoplay = true
+bus = "Music"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
