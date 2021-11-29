@@ -85,7 +85,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"fadeIn":
 			if gameOverBool:
-				get_tree().change_scene("res://Scenes/mainmenu.tscn")
+				get_tree().change_scene("res://Scenes/GameOver.tscn")
 			else:
 				currentLevel.cleanup()
 				currentLevel = nextLevel

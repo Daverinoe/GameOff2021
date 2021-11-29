@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Menu/mainMenuBackground.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Menu/GameOver/gameOver4.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/sky.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Backgrounds/vr_forest/forest.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/Character/player.png" type="Texture" id=5]
@@ -13,8 +13,19 @@
 [ext_resource path="res://Assets/Menu/optionsHover.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Menu/exitHover.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Sounds/Music/MainMenu.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Menu/GameOver/gameOver2.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Menu/GameOver/gameOver3.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Menu/GameOver/gameOver1.png" type="Texture" id=16]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="GameOver" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -59,19 +70,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 14.2705
-margin_top = 29.513
-margin_right = 110.271
-margin_bottom = 91.513
+margin_left = 21.0225
+margin_top = 29.5233
+margin_right = 117.022
+margin_bottom = 91.5233
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="MainMenuBackground" type="Sprite" parent="VBoxContainer"]
-visible = false
-position = Vector2( 35.6403, 37.3828 )
-texture = ExtResource( 2 )
-offset = Vector2( 10, -10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 96.0
@@ -109,9 +114,15 @@ texture_hover = ExtResource( 12 )
 
 [node name="menuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = -10.0
+volume_db = -20.0
 autoplay = true
 bus = "Music"
+
+[node name="GameOver" type="AnimatedSprite" parent="."]
+position = Vector2( 469.009, 181.918 )
+frames = SubResource( 1 )
+speed_scale = 2.0
+playing = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
