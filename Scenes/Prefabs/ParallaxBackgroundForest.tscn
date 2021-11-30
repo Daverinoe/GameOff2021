@@ -1,11 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Parallax.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Backgrounds/vr_forest/forest.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Backgrounds/vr_forest/sky.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/skyMiddle.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/skyFront.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Materials/glitch.tres" type="Material" id=4]
 [ext_resource path="res://Scripts/glitch.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Shaders/Glitch.tres" type="Shader" id=6]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/forestMiddle.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/forestFront.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/skyBack.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Backgrounds/vr_forest/forestBack.png" type="Texture" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 6 )
@@ -17,13 +21,69 @@ shader_param/enabled = false
 [node name="ParallaxBackgroundForest" type="ParallaxBackground"]
 script = ExtResource( 1 )
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer6" groups=["ParallaxSprite"]]
+material = SubResource( 1 )
+texture = ExtResource( 9 )
+centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer6"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
 motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer5" groups=["ParallaxSprite"]]
+material = SubResource( 1 )
+texture = ExtResource( 2 )
+centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer5"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer4" groups=["ParallaxSprite"]]
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer4"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.4, 1 )
+motion_mirroring = Vector2( 1200, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxLayer3" groups=["ParallaxSprite"]]
+material = SubResource( 1 )
+texture = ExtResource( 10 )
+centered = false
+script = ExtResource( 5 )
+
+[node name="GlitchTimer" type="Timer" parent="ParallaxLayer3"]
+wait_time = 0.5
+one_shot = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.6, 1 )
 motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer2" groups=["ParallaxSprite"]]
 material = SubResource( 1 )
-texture = ExtResource( 3 )
+texture = ExtResource( 7 )
 centered = false
 script = ExtResource( 5 )
 
@@ -32,12 +92,12 @@ wait_time = 0.5
 one_shot = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.4, 1 )
+motion_scale = Vector2( 0.8, 1 )
 motion_mirroring = Vector2( 1200, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxLayer" groups=["ParallaxSprite"]]
 material = ExtResource( 4 )
-texture = ExtResource( 2 )
+texture = ExtResource( 8 )
 centered = false
 script = ExtResource( 5 )
 
@@ -45,5 +105,9 @@ script = ExtResource( 5 )
 wait_time = 0.5
 one_shot = true
 
+[connection signal="timeout" from="ParallaxLayer6/GlitchTimer" to="ParallaxLayer6/Sprite" method="_on_GlitchTimer_timeout"]
+[connection signal="timeout" from="ParallaxLayer5/GlitchTimer" to="ParallaxLayer5/Sprite" method="_on_GlitchTimer_timeout"]
+[connection signal="timeout" from="ParallaxLayer4/GlitchTimer" to="ParallaxLayer4/Sprite" method="_on_GlitchTimer_timeout"]
+[connection signal="timeout" from="ParallaxLayer3/GlitchTimer" to="ParallaxLayer3/Sprite" method="_on_GlitchTimer_timeout"]
 [connection signal="timeout" from="ParallaxLayer2/GlitchTimer" to="ParallaxLayer2/Sprite" method="_on_GlitchTimer_timeout"]
 [connection signal="timeout" from="ParallaxLayer/GlitchTimer" to="ParallaxLayer/Sprite" method="_on_GlitchTimer_timeout"]

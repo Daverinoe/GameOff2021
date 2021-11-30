@@ -1,6 +1,6 @@
 extends Sprite
 
-export(float, 0.0, 1.0) var chance_to_glitch = 0.001
+export(float, 0.0, 1.0) var chance_to_glitch = 0.0005
 var glitching : bool = false
 
 func _ready() -> void:
