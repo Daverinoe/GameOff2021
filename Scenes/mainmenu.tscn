@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Menu/mainMenuBackground.png" type="Texture" id=2]
@@ -13,6 +13,16 @@
 [ext_resource path="res://Assets/Menu/optionsHover.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Menu/exitHover.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Sounds/Music/MainMenu.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Materials/glitch.tres" type="Material" id=14]
+[ext_resource path="res://Assets/Shaders/Glitch.tres" type="Shader" id=15]
+[ext_resource path="res://Scripts/glitch.gd" type="Script" id=16]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 15 )
+shader_param/scan_line_size = 0.015
+shader_param/horizontal_shake_magnitude = 0.01
+shader_param/chromatic_aberration_magnitude = 0.03
+shader_param/enabled = false
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -29,12 +39,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sky" type="Sprite" parent="CenterContainer"]
+[node name="Node2D" type="Node2D" parent="CenterContainer"]
+
+[node name="Sky" type="Sprite" parent="CenterContainer/Node2D"]
+material = SubResource( 1 )
 position = Vector2( 445.524, 265.841 )
 texture = ExtResource( 3 )
+script = ExtResource( 16 )
 
-[node name="Forest" type="Sprite" parent="CenterContainer/Sky"]
+[node name="GlitchTimer" type="Timer" parent="CenterContainer/Node2D"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Node2D2" type="Node2D" parent="CenterContainer"]
+
+[node name="Forest" type="Sprite" parent="CenterContainer/Node2D2"]
+material = ExtResource( 14 )
+position = Vector2( 445.524, 265.841 )
 texture = ExtResource( 4 )
+script = ExtResource( 16 )
+
+[node name="GlitchTimer" type="Timer" parent="CenterContainer/Node2D2"]
+wait_time = 0.5
+one_shot = true
 
 [node name="TileMap" type="TileMap" parent="CenterContainer"]
 tile_set = ExtResource( 6 )
@@ -113,6 +140,8 @@ volume_db = -10.0
 autoplay = true
 bus = "Music"
 
+[connection signal="timeout" from="CenterContainer/Node2D/GlitchTimer" to="CenterContainer/Node2D/Sky" method="_on_GlitchTimer_timeout"]
+[connection signal="timeout" from="CenterContainer/Node2D2/GlitchTimer" to="CenterContainer/Node2D2/Forest" method="_on_GlitchTimer_timeout"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

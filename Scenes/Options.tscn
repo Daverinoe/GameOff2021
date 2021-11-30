@@ -57,7 +57,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer"]
 margin_top = 78.0
 margin_right = 320.0
-margin_bottom = 288.0
+margin_bottom = 287.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -67,20 +67,20 @@ __meta__ = {
 
 [node name="Column1" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
 margin_right = 100.0
-margin_bottom = 210.0
+margin_bottom = 209.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="MainMenu" type="Button" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column1"]
-margin_top = 190.0
+margin_top = 189.0
 margin_right = 100.0
-margin_bottom = 210.0
+margin_bottom = 209.0
 text = "Main Menu"
 
 [node name="Column2" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
 margin_left = 110.0
 margin_right = 210.0
-margin_bottom = 210.0
+margin_bottom = 209.0
 size_flags_horizontal = 3
 custom_constants/separation = 16
 
@@ -103,6 +103,8 @@ text = "Master"
 margin_top = 18.0
 margin_right = 100.0
 margin_bottom = 34.0
+min_value = -50.0
+max_value = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -117,6 +119,8 @@ text = "SFX"
 margin_top = 56.0
 margin_right = 100.0
 margin_bottom = 72.0
+min_value = -50.0
+max_value = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -131,6 +135,8 @@ text = "Music"
 margin_top = 94.0
 margin_right = 100.0
 margin_bottom = 110.0
+min_value = -50.0
+max_value = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -138,14 +144,14 @@ __meta__ = {
 [node name="Column3" type="VBoxContainer" parent="NinePatchRect/VBoxContainer/HBoxContainer"]
 margin_left = 220.0
 margin_right = 320.0
-margin_bottom = 210.0
+margin_bottom = 209.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="ExitButton" type="Button" parent="NinePatchRect/VBoxContainer/HBoxContainer/Column3"]
-margin_top = 190.0
+margin_top = 189.0
 margin_right = 100.0
-margin_bottom = 210.0
+margin_bottom = 209.0
 text = "Back"
 
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/HBoxContainer/Column1/MainMenu" to="." method="_on_MainMenu_pressed"]
