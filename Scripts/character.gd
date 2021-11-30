@@ -15,6 +15,8 @@ export(float, 0.0, 300) var jumpSpeed : float = 800
 export(float, 1.0, 300) var jumpAcceleration : float = 100
 
 var jumpParticlesScene : PackedScene = preload("res://Scenes/characterdetail/FootPuffs.tscn")
+onready var animatedSprite = $AnimatedSprite
+onready var levelLoader = get_node("/root/levelLoader")
 
 # Intermediary variables
 var direction := Vector2.RIGHT
@@ -55,11 +57,14 @@ func get_input_and_set_direction() -> void:
 	elif Input.is_action_pressed("move_left"):
 		direction.x = -1
 		speed = maxSpeed
+		animatedSprite.play("walk")
 	elif Input.is_action_pressed("move_right"):
 		direction.x = 1
 		speed = maxSpeed
+		animatedSprite.play("walk")
 	else:
 		speed = 0
+		animatedSprite.play("idle")
 	
 	if Input.is_action_just_pressed("move_left"):
 		self.rotation = deg2rad(180)
@@ -75,6 +80,8 @@ func get_input_and_set_jump() -> void:
 			doubleJump = true
 		jumping = true
 		falling = false
+		$JumpSound.play()
+		$JumpSound.pitch_scale = rand_range(0.9, 1.1)
 		
 	if Input.is_action_just_released("jump") and jumping:
 		falling = true
@@ -90,6 +97,7 @@ func set_velocity() -> void:
 		$Footsteps/Timer.start()
 	elif abs(velocity.x) < 0.1 and !$Footsteps/Timer.is_stopped() or !is_on_floor():
 		$Footsteps/Timer.stop()
+		$Footsteps/Timer.wait_time = 0.05
 	
 	if !isHit and !isChangingLevel:
 		# Left and right movement (lerp looks nice, though might try different erp functions)
@@ -168,6 +176,8 @@ func take_damage(damageTaken: int) -> void:
 		$AnimationPlayer.play("TakeDamage")
 		 # Turn off collision so we don't hit things until after the hit timer expires
 		set_collision(1, false)
+	if health < 0:
+		levelLoader.gameOver()
 
 
 func _on_HitTimer_timeout() -> void:
@@ -183,5 +193,7 @@ func set_collision(bit: int, state: bool) -> void:
 	set_collision_mask_bit(bit, state)
 
 func _on_Timer_timeout() -> void:
+	if $Footsteps/Timer.wait_time != 0.4:
+		$Footsteps/Timer.wait_time = 0.4
 	$Footsteps/Sound.pitch_scale = rand_range(0.7, 1.3)
 	$Footsteps/Sound.play()

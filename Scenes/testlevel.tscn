@@ -4,6 +4,7 @@
 [ext_resource path="res://Scenes/Label.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/mouse.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/powerup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/CRT.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 18.0196 )
@@ -99,10 +100,12 @@ scale = Vector2( 19.2506, 36.0804 )
 texture = SubResource( 2 )
 
 [node name="character" parent="." instance=ExtResource( 1 )]
-position = Vector2( 248.838, 152.106 )
+position = Vector2( 148.939, 156.596 )
 
 [node name="mouse" parent="." instance=ExtResource( 3 )]
 position = Vector2( 605, 415 )
 
 [node name="powerup" parent="." instance=ExtResource( 4 )]
 position = Vector2( 607.593, 325.178 )
+[node name="CRT" parent="." instance=ExtResource( 5 )]
+position = Vector2( 888.99, 55.0006 )

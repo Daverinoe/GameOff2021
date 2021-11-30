@@ -1,12 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Office/officeHub.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/VrForest/forestHub.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/ScoreAmount.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/CameraController.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Sounds/Music/explore2.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Scripts/levelLoader.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Menu/score.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fadeIn"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Overlay/Overlay:color")
 tracks/0/interp = 1
@@ -14,7 +18,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
@@ -22,6 +26,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "fadeOut"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Overlay/Overlay:color")
 tracks/0/interp = 1
@@ -29,7 +34,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
@@ -37,6 +42,40 @@ tracks/0/keys = {
 
 [node name="levelLoader" type="Node"]
 script = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fadeIn = SubResource( 1 )
+anims/fadeOut = SubResource( 2 )
+
+[node name="Office" type="Node" parent="."]
+
+[node name="Level" parent="Office" instance=ExtResource( 2 )]
+
+[node name="character" parent="." instance=ExtResource( 1 )]
+position = Vector2( 110.139, 198.467 )
+maxSpeed = 400
+
+[node name="Camera2D" type="Camera2D" parent="character"]
+position = Vector2( 32, -64 )
+current = true
+zoom = Vector2( 0.75, 0.75 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.3
+drag_margin_right = 0.3
+editor_draw_limits = true
+script = ExtResource( 4 )
+
+[node name="Menu" type="Button" parent="character/Camera2D"]
+visible = false
+margin_left = -135.918
+margin_top = -124.592
+margin_right = -87.9178
+margin_bottom = -104.592
+text = "Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 layer = 0
@@ -50,25 +89,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="character" parent="." instance=ExtResource( 1 )]
-position = Vector2( 42.1799, 477.853 )
+[node name="ScoreAmount" type="RichTextLabel" parent="Overlay"]
+margin_left = 233.262
+margin_top = 46.105
+margin_right = 273.262
+margin_bottom = 86.105
+text = "0"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Camera2D" type="Camera2D" parent="character"]
-position = Vector2( 32, -64 )
-current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-drag_margin_left = 0.3
-drag_margin_right = 0.3
-editor_draw_limits = true
-script = ExtResource( 4 )
+[node name="Score" type="Sprite" parent="Overlay"]
+position = Vector2( 85.2365, 52.059 )
+texture = ExtResource( 7 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/fadeIn = SubResource( 1 )
-anims/fadeOut = SubResource( 2 )
-
-[node name="Office" type="Node" parent="."]
-
-[node name="Level" parent="Office" instance=ExtResource( 2 )]
+[node name="exploreMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
+autoplay = true
+bus = "Music"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="character/Camera2D/Menu" to="." method="_on_Menu_pressed"]
