@@ -6,7 +6,7 @@ var glitching : bool = false
 func _ready() -> void:
 	randomize()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var check_glitch = randf()
 	if check_glitch < chance_to_glitch and not glitching:
 		glitching = true

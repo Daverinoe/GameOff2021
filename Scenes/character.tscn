@@ -162,7 +162,7 @@ gravity = 70.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
 animation = "idle"
-frame = 3
+frame = 4
 speed_scale = 1.5
 playing = true
 
@@ -216,7 +216,7 @@ shotDelay = 0.11
 position = Vector2( -20.5871, 3.171 )
 frames = SubResource( 5 )
 animation = "idle"
-frame = 2
+frame = 4
 speed_scale = 1.5
 playing = true
 

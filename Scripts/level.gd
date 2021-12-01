@@ -62,3 +62,7 @@ func _on_Level_visibility_changed():
 	if is_visible():
 		for exit in get_tree().get_nodes_in_group("Exits"):
 			exit.set_monitoring(true) 
+
+
+func _on_ExitExit_body_entered(body):
+	changeLevelCheck(body, 4)
