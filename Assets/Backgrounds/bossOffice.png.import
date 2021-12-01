@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/doublejump.png-237f140f1ba5ae9107720cf48a6df851.stex"
+path="res://.import/bossOffice.png-0b9ca850795d874a293daa362ab36f7d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Character/powerup/doublejump.png"
-dest_files=[ "res://.import/doublejump.png-237f140f1ba5ae9107720cf48a6df851.stex" ]
+source_file="res://Assets/Backgrounds/bossOffice.png"
+dest_files=[ "res://.import/bossOffice.png-0b9ca850795d874a293daa362ab36f7d.stex" ]
 
 [params]
 

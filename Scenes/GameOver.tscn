@@ -79,7 +79,7 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 96.0
+margin_right = 95.0
 margin_bottom = 62.0
 
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer"]
@@ -121,6 +121,7 @@ bus = "Music"
 [node name="GameOver" type="AnimatedSprite" parent="."]
 position = Vector2( 469.009, 181.918 )
 frames = SubResource( 1 )
+frame = 3
 speed_scale = 2.0
 playing = true
 

@@ -52,8 +52,8 @@ anims/fadeOut = SubResource( 2 )
 [node name="Level" parent="Office" instance=ExtResource( 2 )]
 
 [node name="character" parent="." instance=ExtResource( 1 )]
-position = Vector2( 110.139, 198.467 )
-maxSpeed = 400
+position = Vector2( 203.002, 382.605 )
+maxSpeed = 350
 
 [node name="Camera2D" type="Camera2D" parent="character"]
 position = Vector2( 32, -64 )
@@ -91,9 +91,10 @@ __meta__ = {
 
 [node name="ScoreAmount" type="RichTextLabel" parent="Overlay"]
 margin_left = 233.262
-margin_top = 46.105
+margin_top = 39.105
 margin_right = 273.262
-margin_bottom = 86.105
+margin_bottom = 79.105
+rect_scale = Vector2( 2, 2 )
 text = "0"
 script = ExtResource( 3 )
 __meta__ = {
