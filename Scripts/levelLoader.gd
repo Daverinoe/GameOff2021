@@ -3,6 +3,8 @@ extends Node
 var nextLevel = null
 var exit = null
 var gameOverBool = false
+var won = false
+var wonish = false
 
 onready var currentLevel = $Office/Level #This is the start level
 onready var anim = $AnimationPlayer
@@ -20,19 +22,24 @@ func _ready() -> void:
 
 
 func handleLevelChanged(currentLevelName: String, exitTemp: int):
-	var nextLevelName: String
-	var nextLevelNameTemp = levelData.levelConnect.get(currentLevelName)
-	exit = exitTemp
-	nextLevelName = nextLevelNameTemp[exit]
-			
-	nextLevel = load("res://Scenes/VrForest/" + nextLevelName + ".tscn").instance()
-	nextLevel.visible = false
-	checkData(nextLevel, nextLevelName)
-	changeData(currentLevel, currentLevelName)
-	call_deferred("add_child", nextLevel)
-	anim.play("fadeIn")
-	nextLevel.connect("levelChanged", self, "handleLevelChanged")
-	transferDataBetweenScenes(currentLevel, nextLevel)
+	if currentLevelName == "forestThree" and exitTemp == 4:
+		won = true
+		player.isChangingLevel = true
+		anim.play("fadeIn")
+	else:
+		var nextLevelName: String
+		var nextLevelNameTemp = levelData.levelConnect.get(currentLevelName)
+		exit = exitTemp
+		nextLevelName = nextLevelNameTemp[exit]
+				
+		nextLevel = load("res://Scenes/VrForest/" + nextLevelName + ".tscn").instance()
+		nextLevel.visible = false
+		checkData(nextLevel, nextLevelName)
+		changeData(currentLevel, currentLevelName)
+		call_deferred("add_child", nextLevel)
+		anim.play("fadeIn")
+		nextLevel.connect("levelChanged", self, "handleLevelChanged")
+		transferDataBetweenScenes(currentLevel, nextLevel)
 
 func checkData(var level, var levelName):
 	var x = 0
@@ -71,10 +78,11 @@ func transferDataBetweenScenes(oldScene, newScene):
 
 
 func setCameraLimits():
-	camera.limit_left = currentLevel.cameraLimit[0]
-	camera.limit_top = currentLevel.cameraLimit[1]
-	camera.limit_right = currentLevel.cameraLimit[2]
-	camera.limit_bottom = currentLevel.cameraLimit[3]
+	if !won:
+		camera.limit_left = currentLevel.cameraLimit[0]
+		camera.limit_top = currentLevel.cameraLimit[1]
+		camera.limit_right = currentLevel.cameraLimit[2]
+		camera.limit_bottom = currentLevel.cameraLimit[3]
 	
 func gameOver():
 	gameOverBool = true
@@ -86,6 +94,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		"fadeIn":
 			if gameOverBool:
 				get_tree().change_scene("res://Scenes/GameOver.tscn")
+			elif won:
+				get_tree().change_scene("res://Scenes/Office/officeBoss.tscn")
 			else:
 				currentLevel.cleanup()
 				currentLevel = nextLevel
@@ -101,3 +111,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_Menu_pressed():
 	var options = load("res://Scenes/Options.tscn").instance()
 	get_tree().current_scene.add_child(options)
+
+
+func _on_Restart_pressed():
+	get_tree().change_scene("res://Scenes/mainmenu.tscn")

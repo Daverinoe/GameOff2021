@@ -8,17 +8,20 @@ var levelConnect = {
 	"officeThree" : [null, null, null, "Office/officeHub"],
 	"forestHub" : [null, "forestOne", null, null],
 	"forestOne" : ["forestHub", "forestTwo", null, null],
-	"forestTwo" : ["forestOne", null, null, null]
+	"forestTwo" : ["forestOne", "forestThree", null, null],
+	"forestThree" : ["forestTwo", null, null, null]
 }
 
 var openDoors = {
 	"forestHub" : [false, false],
 	"forestOne" : [false],
-	"forestTwo" : [false]
+	"forestTwo" : [false],
+	"forestThree" : [false]
 }
 
 var pointsTaken = {
 	"forestHub" : [false, false],
 	"forestOne" : [false, false],
-	"forestTwo" : [false, false]
+	"forestTwo" : [false, false],
+	"forestThree" : [false, false]
 }
