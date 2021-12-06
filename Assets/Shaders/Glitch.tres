@@ -3,6 +3,8 @@
 [resource]
 code = "shader_type canvas_item;
 
+# Based on a shader found on reddit https://old.reddit.com/r/godot/comments/gfkq01/analog_glitch_shader_based_on_kinoglitch/
+
 uniform float scan_line_size : hint_range(0.0,0.075) = 0.015;
 uniform float horizontal_shake_magnitude : hint_range(0.0,0.25) = 0.01;
 uniform float chromatic_aberration_magnitude : hint_range(0.0,0.1) = 0.03; 
